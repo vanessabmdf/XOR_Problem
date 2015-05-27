@@ -13,7 +13,7 @@ public class Main {
 		System.out.println("Insira o numero de epocas: ");
 		int epocas = scan.nextInt();
 		
-		MLP mlp = new MLP(2, 2, 1, epocas);
+		MLP mlp = new MLP(2, 2, 1, epocas,0.1,0.9,0.00001);
 		
 		/*possiveis entradas e saidas*/
 		double[][] treinoEntrada = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };

@@ -9,7 +9,9 @@ public class MLP {
 
 	private double[/* camada H */][/* camada de entrada */] pesosCamada1,
 			pesosCamada2;
-	private double taxaDeAprendizado = 0.5;
+	private double taxaDeAprendizado;
+	private double momento;
+	private double erroAceito;
 	private int epocas;
 	
 	private ArrayList<Double> erroCamada2;
@@ -26,7 +28,7 @@ public class MLP {
 	 * @param epocas
 	 *            numero de epocas de treinamento
 	 */
-	public MLP(int nEntrada, int nHidden, int nSaida, int epocas) {
+	public MLP(int nEntrada, int nHidden, int nSaida, int epocas, double alpha, double momento, double erro) {
 
 		this.nEntradas = nEntrada;
 		this.nHidden = nHidden;
@@ -41,6 +43,10 @@ public class MLP {
 		pesosCamada2 = new double[nSaida + 1][nHidden + 1];
 		
 		erroCamada2 = new ArrayList<Double>();
+		
+		this.taxaDeAprendizado = alpha;
+		this.momento = momento;
+		this.erroAceito = erro;
 
 		// Initialize weigths
 		gerarPesosRandomicos();
@@ -78,6 +84,7 @@ public class MLP {
 				MLP.printVector(treinarRede(treinoEntrada[i],
 						treinoSaidaEsperada[i]));
 			}
+			
 		}
 	}
 
@@ -127,6 +134,7 @@ public class MLP {
 		for (int i = 1; i <= nSaida; i++) {
 			erroCamada2[i] = saida[i] * (1.0 - saida[i])
 					* (saidaEsperada[i - 1] - saida[i]);
+			System.out.println(erroCamada2[i]);
 		}
 		
 		this.erroCamada2.add(erroCamada2[1]);
@@ -141,12 +149,12 @@ public class MLP {
 
 		for (int j = 1; j <= nSaida; j++)
 			for (int i = 0; i <= nHidden; i++)
-				pesosCamada2[j][i] += taxaDeAprendizado * erroCamada2[j]
+				pesosCamada2[j][i] += (pesosCamada2[j][i] * momento)+taxaDeAprendizado * erroCamada2[j]
 						* hidden[i];
 
 		for (int j = 1; j <= nHidden; j++)
 			for (int i = 0; i <= nEntradas; i++)
-				pesosCamada1[j][i] += taxaDeAprendizado * erroCamada1[j]
+				pesosCamada1[j][i] += (pesosCamada1[j][i] * momento )+taxaDeAprendizado * erroCamada1[j]
 						* entrada[i];
 
 	}
