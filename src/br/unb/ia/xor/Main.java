@@ -13,7 +13,7 @@ public class Main {
 		System.out.println("Insira o numero de epocas: ");
 		int epocas = scan.nextInt();
 		
-		MLP mlp = new MLP(2, 2, 1, epocas,0.1,0.9,0.00001);
+		MLP mlp = new MLP(2, 2, 1, epocas,0.1,0.5,0.00001);
 		
 		/*possiveis entradas e saidas*/
 		double[][] treinoEntrada = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
@@ -23,6 +23,7 @@ public class Main {
 		double[] entrada = new double[2];
 		
 		/*executa o treino da rede*/
+		mlp.setFuncaoTransferencia("Sigmoide");
 		mlp.executarTreino(treinoEntrada, treinoSaida);
 		
 		

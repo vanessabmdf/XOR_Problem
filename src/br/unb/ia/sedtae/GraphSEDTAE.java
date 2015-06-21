@@ -1,4 +1,4 @@
-package br.unb.ia.xor;
+package br.unb.ia.sedtae;
 
 import javax.swing.JFrame;
 
@@ -22,7 +22,7 @@ import prefuse.render.LabelRenderer;
 import prefuse.util.ColorLib;
 import prefuse.visual.VisualItem;
 
-public class XorGraph {
+public class GraphSEDTAE {
 
     public static void graph() {
         
@@ -32,7 +32,7 @@ public class XorGraph {
         // found at the root of the java classpath
         Graph graph = null;
         try {
-            graph = new GraphMLReader().readGraph("xor.xml");
+            graph = new GraphMLReader().readGraph("IA.xml");
         } catch ( DataIOException e ) {
             e.printStackTrace();
             System.err.println("Error loading graph. Exiting...");
@@ -109,7 +109,7 @@ public class XorGraph {
         // create a new window to hold the visualization
         JFrame frame = new JFrame("prefuse example");
         // ensure application exits when window is closed
-       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(d);
         frame.pack();           // layout components in window
         frame.setVisible(true); // show the window
